@@ -14,7 +14,7 @@ namespace MSA.Router
         static void Main(string[] args)
         {
 
-            Debugger.Launch();
+           // Debugger.Launch();
             string config = configStr;
             foreach (string item in args)
             {
@@ -88,7 +88,7 @@ namespace MSA.Router
     	        }
             }
             cluster {
-    	        seed-nodes = [""akka.tcp://MSA@##seedhostname##:##port##""]
+    	        seed-nodes = [""akka.tcp://MSA@##hostname##:##port##""]
     	        roles = [Router]
     	        downing-provider-class = ""Akka.Cluster.SplitBrainResolver, Akka.Cluster""
     	        split-brain-resolver {
