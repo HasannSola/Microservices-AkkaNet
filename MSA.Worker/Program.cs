@@ -12,21 +12,15 @@ namespace MSA.Worker
         private static ActorSystem _actorSystem = null;
         static void Main(string[] args)
         {
-            AppDomain.CurrentDomain.ProcessExit += CurrentDomain_ProcessExit;
-            AppDomain.CurrentDomain.DomainUnload += CurrentDomain_DomainUnload;
-            Console.CancelKeyPress += Console_CancelKeyPress;
             string config = AkkaConfig.configWorker;
             foreach (string item in args)
             {
                 string[] configParams = item.Split('=');
                 if (configParams[0] != "roles")
+                {
                     config = config.Replace($"##{configParams[0]}##", configParams[1]);
-            }
-
-            foreach (string item in args)
-            {
-                string[] configParams = item.Split('=');
-                if (configParams[0] == "roles")
+                }
+                else if (configParams[0] == "roles")
                 {
                     string[] role = configParams[1].Split(',');
                     for (int i = 0; i < role.Length; i++)
@@ -36,6 +30,11 @@ namespace MSA.Worker
                     }
                 }
             }
+
+            AppDomain.CurrentDomain.ProcessExit += CurrentDomain_ProcessExit;
+            AppDomain.CurrentDomain.DomainUnload += CurrentDomain_DomainUnload;
+            Console.CancelKeyPress += Console_CancelKeyPress;
+
             _actorSystem.WhenTerminated.Wait();
         }
         private static void CurrentDomain_DomainUnload(object sender, EventArgs e)

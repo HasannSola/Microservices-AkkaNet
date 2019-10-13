@@ -13,6 +13,7 @@
   </ItemGroup>
   
   <ItemGroup>
+    <ProjectReference Include="..\MSA.Bll\MSA.Bll.csproj" />
     <ProjectReference Include="..\MSA.Entities\MSA.Entities.csproj" />
   </ItemGroup>
   
