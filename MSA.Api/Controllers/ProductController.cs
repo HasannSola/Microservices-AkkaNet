@@ -20,7 +20,6 @@ namespace MSA.Api.Controllers
         [ActionName("Add")]
         public async Task<string> Add(string product)
         {
-
             Debugger.Launch();
             Product model = JsonConvert.DeserializeObject<Product>(product);
             var result = await Globals.Router.Ask<string>(new AddMessage(model));

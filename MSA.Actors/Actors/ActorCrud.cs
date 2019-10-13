@@ -1,8 +1,5 @@
 ﻿using Akka.Actor;
 using MSA.Entities.Message;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace MSA.Actors.Actors
 {
@@ -15,7 +12,6 @@ namespace MSA.Actors.Actors
         private void Handle(AddMessage message)
         {
             var _sender = Sender;
-        
             _sender.Tell("Add Message Alındı.");
         }
     }

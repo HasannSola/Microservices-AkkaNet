@@ -2,20 +2,14 @@
 using Akka.Routing;
 using MSA.Actors.Actors;
 using MSA.Entities.Message;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
 
-namespace MSA.Actors.Handlers
+namespace MSA.Actors.Routers
 {
-    public class ActorHandler : ReceiveActor
+    public class ActorRouter : ReceiveActor
     {
-        IActorRef _addActor = null;
-        public ActorHandler(string addActorName)
+        private readonly IActorRef _addActor = null;
+        public ActorRouter(string addActorName)
         {
-
-            Debugger.Launch();       
             _addActor = Context.ActorOf(Props.Create<ActorCrud>().WithRouter(FromConfig.Instance), addActorName);
             Receive<AddMessage>(message => Handle(message));
         }
