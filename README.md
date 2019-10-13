@@ -2,6 +2,10 @@
 Akka.Net ile Katmanlı Mimari ile Microservis
 <br/>
 
+*** Asp.net Core en az Version="2.2.0" olmalı. öğrenmek içi CMD aç "dotnet --version " komutunu yaz.
+dotnet version 2.2.0 düşükse yada dotnet komutu çalışmıyorsa SDK yı aşağıdaki linkden indir.
+https://github.com/dotnet/core/blob/master/release-notes/2.2/2.2.7/2.2.7-download.md buradaki linkden uygun SDK yı indirebilirsiniz.<br/>
+
 1-lighthouse ayağa kaldırmak içi CMD ye aşağıdaki komutları yazın. Yazdıkan sonra bir hata olmadığında en son satırda,<br/>
  "- Leader is moving node [akka.tcp://MSA@local Ip Adresi] to [Up]" bir çıktı oluşmalı.<br/>
 <br/>
