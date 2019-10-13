@@ -8,12 +8,13 @@ namespace MSA.Lighthouse
     {
         static void Main(string[] args)
         {
+            string config = AkkaConfig.configLighthouse;
             foreach (string item in args)
             {
                 string[] configParams = item.Split('=');
-                AkkaConfig.configLighthouse = AkkaConfig.configLighthouse.Replace($"##{configParams[0]}##", configParams[1]);
+                config = config.Replace($"##{configParams[0]}##", configParams[1]);
             }
-            Config clusterConfig = ConfigurationFactory.ParseString(AkkaConfig.configLighthouse);
+            Config clusterConfig = ConfigurationFactory.ParseString(config);
             ActorSystem _actorSystem = ActorSystem.Create("MSA", clusterConfig);
             _actorSystem.WhenTerminated.Wait();
         }

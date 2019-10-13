@@ -9,12 +9,13 @@ namespace MSA.Router
     {
         static void Main(string[] args)
         {
-            foreach (string item in args)
+            string config = AkkaConfig.configRouter;
+            foreach (string item in args) 
             {
                 string[] configParams = item.Split('=');
-                AkkaConfig.configRouter = AkkaConfig.configRouter.Replace($"##{configParams[0]}##", configParams[1]);
+                config = config.Replace($"##{configParams[0]}##", configParams[1]);
             }
-            Config clusterConfig = ConfigurationFactory.ParseString(AkkaConfig.configRouter);
+            Config clusterConfig = ConfigurationFactory.ParseString(config);
             ActorSystem _actorSystem = ActorSystem.Create("MSA", clusterConfig);
             _actorSystem.ActorOf(Props.Create<ActorRouter>("Add"), "MServis");
             _actorSystem.WhenTerminated.Wait();

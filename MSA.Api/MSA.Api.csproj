@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MSA.Core\MSA.Core.csproj" />
     <ProjectReference Include="..\MSA.Entities\MSA.Entities.csproj" />
   </ItemGroup>
 

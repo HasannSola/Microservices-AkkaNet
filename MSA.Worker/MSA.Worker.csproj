@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MSA.Actors\MSA.Actors.csproj" />
+    <ProjectReference Include="..\MSA.Core\MSA.Core.csproj" />
   </ItemGroup>
   
 </Project>

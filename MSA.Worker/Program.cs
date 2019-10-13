@@ -1,6 +1,7 @@
 ﻿using Akka;
 using Akka.Actor;
 using Akka.Configuration;
+using MSA.Core.Configs;
 using System;
 using System.Threading.Tasks;
 
@@ -14,8 +15,7 @@ namespace MSA.Worker
             AppDomain.CurrentDomain.ProcessExit += CurrentDomain_ProcessExit;
             AppDomain.CurrentDomain.DomainUnload += CurrentDomain_DomainUnload;
             Console.CancelKeyPress += Console_CancelKeyPress;
-
-            string config = configStr;
+            string config = AkkaConfig.configWorker;
             foreach (string item in args)
             {
                 string[] configParams = item.Split('=');
@@ -57,38 +57,5 @@ namespace MSA.Worker
             Task<Done> shutdownTask = CoordinatedShutdown.Get(_actorSystem).Run(CoordinatedShutdown.ClrExitReason.Instance);
             shutdownTask.Wait();
         }
-
-        private static readonly string configStr =
-            @"akka {
-	actor { 
-		serializers { 
-			json = ""Akka.Serialization.HyperionSerializer, Akka.Serialization.Hyperion""
-		}
-        serialization-bindings { 
-	    		""System.Object"" = json
-        }
-        provider = ""Akka.Cluster.ClusterActorRefProvider, Akka.Cluster""
-    }
-    remote {
-    	dot-netty.tcp {
-    		transport-class = ""Akka.Remote.Transport.DotNetty.TcpTransport, Akka.Remote""
-    		applied-adapters = []
-            transport-protocol = tcp
-            public-hostname = ""##publichostname##""
-    		hostname = ""##hostname##""
-    		port = 0
-    	}
-    }
-    cluster {
-        seed-nodes = [""akka.tcp://MSA@##hostname##:##port##""]
-    	roles = [##roles##]
-    	downing-provider-class = ""Akka.Cluster.SplitBrainResolver, Akka.Cluster""
-    	split-brain-resolver {
-    		stable-after = 20s
-            active-strategy = keep-majority
-    	}
-    }
-    log-config-on-start = on
-}";
     }
 }

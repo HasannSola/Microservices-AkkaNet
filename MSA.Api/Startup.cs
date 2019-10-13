@@ -14,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using MSA.Core.Configs;
 
 namespace MSA.Api
 {
@@ -55,7 +56,7 @@ namespace MSA.Api
         }
         private void HandleStarted()
         {
-            string config = configStr;
+            string config = AkkaConfig.configApi;
             foreach (string item in Args)
             {
                 string[] configParams = item.Split('=');
@@ -75,46 +76,6 @@ namespace MSA.Api
                 shutdownTask.Wait();
             }
         }
-        private readonly string configStr =
-@"akka {
-	actor { 
-		serializers { 
-			json = ""Akka.Serialization.HyperionSerializer, Akka.Serialization.Hyperion""
-		}
-        serialization-bindings { 
-	    		""System.Object"" = json
-        }
-        provider = ""Akka.Cluster.ClusterActorRefProvider, Akka.Cluster""
-        deployment {
-        /MSRouterConfigName{
-            router = round-robin-group
-            routees.paths = [""/user/MServis""]
-            cluster {
-            enabled = on
-            allow-local-routees = off
-            use-role = Router
-            }
-        }
-    }
-    }
-    remote {
-        maximum-payload-bytes = 83886080 bytes
-    	dot-netty.tcp {
-    	    hostname = ""##hostname##""
-    		port = 0
-            maximum-frame-size = 83886080b
-    	}
-    }
-    cluster {
-    seed-nodes = [""akka.tcp://MSA@##hostname##:##port##""]
-    	roles = [MSApi]
-    	downing-provider-class = ""Akka.Cluster.SplitBrainResolver, Akka.Cluster""
-    	split-brain-resolver {
-    		stable-after = 20s
-            active-strategy = keep-majority
-    	}
-    }
-    log-config-on-start = on
-}";
+
     }
 }
