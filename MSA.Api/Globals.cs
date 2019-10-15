@@ -9,5 +9,7 @@ namespace MSA.Api
     public static class Globals
     {
         public static IActorRef Router = null;
+        public static string[] Args = null;
+
     }
 }

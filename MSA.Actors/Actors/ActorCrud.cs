@@ -5,6 +5,7 @@ using MSA.Dal.Concrete.EntityFramework;
 using MSA.Entities.Entities;
 using MSA.Entities.Message;
 using System.Diagnostics;
+using System.Threading;
 
 namespace MSA.Actors.Actors
 {
@@ -18,10 +19,14 @@ namespace MSA.Actors.Actors
         }
         private void Handle(AddMessage message)
         {
-            Debugger.Launch(); 
-
+            //Debugger.Launch(); 
+            string result = "";
             var _sender = Sender;
-            var result = _productManager.Add((Product)message.Value);
+             result = _productManager.Add((Product)message.Value);
+            if (!string.IsNullOrEmpty(result))
+            {//Ard arda  3 tane worker actor gönderildiğinde actor çalışmakta , 4. actor de ise kuyrukta beklemekte.
+                Thread.Sleep(60 * 1000);//1dk
+            }
             _sender.Tell(result);
         }
     }

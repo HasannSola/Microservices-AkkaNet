@@ -7,7 +7,7 @@ namespace MSA.Dal.Concrete.EntityFramework
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-           var connection = @"Server=.; Database=MSADbContext;Integrated Security=false; Persist Security Info=False; User ID=sa; Password=1; MultipleActiveResultSets=True";
+           var connection = @"Server=(localdb)\MSSQLLocalDB; Database=MSADbContext; Integrated Security=true;  MultipleActiveResultSets=True";
             optionsBuilder.UseSqlServer(connection);
             base.OnConfiguring(optionsBuilder);
         }

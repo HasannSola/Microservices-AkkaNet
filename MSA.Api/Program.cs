@@ -7,7 +7,7 @@ namespace MSA.Api
     {
         public static void Main(string[] args)
         {
-            Startup.Args = args;
+            Globals.Args = args;
             CreateWebHostBuilder(args).Build().Run();
         }
 
