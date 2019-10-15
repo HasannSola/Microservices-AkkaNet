@@ -25,7 +25,7 @@ namespace MSA.Actors.Actors
              result = _productManager.Add((Product)message.Value);
             if (!string.IsNullOrEmpty(result))
             {//Ard arda  3 tane worker actor gönderildiğinde actor çalışmakta , 4. actor de ise kuyrukta beklemekte.
-                Thread.Sleep(60 * 1000);//1dk
+                Thread.Sleep(30 * 1000);//1dk
             }
             _sender.Tell(result);
         }

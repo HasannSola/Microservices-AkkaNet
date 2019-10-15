@@ -5,18 +5,10 @@
         public static string configLighthouse =
            @"akka {
 	            actor { 
-		            serializers { 
-			            json = ""Akka.Serialization.HyperionSerializer, Akka.Serialization.Hyperion""
-		            }
-                    serialization-bindings { 
-	    		            ""System.Object"" = json
-                    }
                     provider = ""Akka.Cluster.ClusterActorRefProvider, Akka.Cluster""
                 }
                 remote {
     	            dot-netty.tcp {
-    		            transport-class = ""Akka.Remote.Transport.DotNetty.TcpTransport, Akka.Remote""
-    		            applied-adapters = []
                         transport-protocol = tcp
                         public-hostname = ""##publichostname##""
     		            hostname = ""##hostname##""
@@ -26,24 +18,13 @@
                 cluster {
     	            seed-nodes = [""akka.tcp://MSA@##hostname##:##port##""]
     	            roles = [Lighthouse]
-    	            downing-provider-class = ""Akka.Cluster.SplitBrainResolver, Akka.Cluster""
-    	            split-brain-resolver {
-    		            stable-after = 20s
-                        active-strategy = keep-majority
-    	            }
                 }
-                log-config-on-start = on
+                log-config-on-start = on   #Cmd ekranında config file gözükemsi için
             }";
 
         public static string configRouter =
         @"akka {
 	        actor { 
-		        serializers { 
-			        json = ""Akka.Serialization.HyperionSerializer, Akka.Serialization.Hyperion""
-		        }
-                serialization-bindings { 
-	    		        ""System.Object"" = json
-                }
                  provider = ""Akka.Cluster.ClusterActorRefProvider, Akka.Cluster""
                 deployment {
                         /MServis/Add{
@@ -59,8 +40,6 @@
             }
             remote {
     	        dot-netty.tcp {
-    		        transport-class = ""Akka.Remote.Transport.DotNetty.TcpTransport, Akka.Remote""
-    		        applied-adapters = []
                     transport-protocol = tcp
                     public-hostname = ""##publichostname##""
     		        hostname = ""##hostname##""
@@ -70,30 +49,16 @@
             cluster {
     	        seed-nodes = [""akka.tcp://MSA@##hostname##:##port##""]
     	        roles = [Router]
-    	        downing-provider-class = ""Akka.Cluster.SplitBrainResolver, Akka.Cluster""
-    	        split-brain-resolver {
-    		        stable-after = 20s
-                    active-strategy = keep-majority
-    	        }
             }
-            log-config-on-start = on
         }";
 
         public static string configWorker =
          @"akka {
 	          actor { 
-		                serializers { 
-			                json = ""Akka.Serialization.HyperionSerializer, Akka.Serialization.Hyperion""
-		                }
-                        serialization-bindings { 
-	    		                ""System.Object"" = json
-                        }
                         provider = ""Akka.Cluster.ClusterActorRefProvider, Akka.Cluster""
                     }
                     remote {
     	                dot-netty.tcp {
-    		                transport-class = ""Akka.Remote.Transport.DotNetty.TcpTransport, Akka.Remote""
-    		                applied-adapters = []
                             transport-protocol = tcp
                             public-hostname = ""##publichostname##""
     		                hostname = ""##hostname##""
@@ -103,23 +68,12 @@
                     cluster {
                         seed-nodes = [""akka.tcp://MSA@##hostname##:##port##""]
     	                roles = [##roles##]
-    	                downing-provider-class = ""Akka.Cluster.SplitBrainResolver, Akka.Cluster""
-    	                split-brain-resolver {
-    		                stable-after = 20s
-                            active-strategy = keep-majority
-    	                }
                     }
-                    log-config-on-start = on
                 }";
+
         public static string configApi =
            @"akka {
 	                 actor { 
-		                    serializers { 
-			                    json = ""Akka.Serialization.HyperionSerializer, Akka.Serialization.Hyperion""
-		                    }
-                            serialization-bindings { 
-	    		                    ""System.Object"" = json
-                            }
                             provider = ""Akka.Cluster.ClusterActorRefProvider, Akka.Cluster""
                             deployment {
                                 /MSRouterConfigName{
@@ -135,24 +89,16 @@
                         }
 
                         remote {
-                            maximum-payload-bytes = 83886080 bytes
     	                    dot-netty.tcp {
     	                        hostname = ""##hostname##""
     		                    port = 0
-                                maximum-frame-size = 83886080b
     	                    }
                         }
 
                         cluster {
                             seed-nodes = [""akka.tcp://MSA@##hostname##:##port##""]
     	                    roles = [MSApi]
-    	                    downing-provider-class = ""Akka.Cluster.SplitBrainResolver, Akka.Cluster""
-    	                    split-brain-resolver {
-    		                    stable-after = 20s
-                                active-strategy = keep-majority
-    	                    }
                         }
-                       log-config-on-start = on
                 }";
     }
 }
