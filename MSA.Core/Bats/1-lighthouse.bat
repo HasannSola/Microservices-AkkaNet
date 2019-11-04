@@ -1,1 +1,1 @@
-dotnet "C:\Projeler\Microservices-AkkaNet\MSA.Lighthouse\bin\Debug\netcoreapp2.2\MSA.Lighthouse.dll"  hostname=192.168.1.107 publichostname=192.168.1.107 port=4053 
+dotnet "C:\Projeler\Microservices-AkkaNet\MSA.Lighthouse\bin\Debug\netcoreapp2.2\MSA.Lighthouse.dll"  hostname=192.168.42.14 publichostname=192.168.42.14 port=4053 

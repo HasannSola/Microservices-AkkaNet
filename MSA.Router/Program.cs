@@ -17,7 +17,8 @@ namespace MSA.Router
             }
             Config clusterConfig = ConfigurationFactory.ParseString(config);
             ActorSystem _actorSystem = ActorSystem.Create("MSA", clusterConfig);
-            _actorSystem.ActorOf(Props.Create<ActorRouter>("Add"), "MServis");
+            _actorSystem.ActorOf(Props.Create<ActorRouter>(), "MServis");// Tanımlı Actor ile bağlantı  , Sadece AddActor tanımlı
+           /// _actorSystem.ActorOf(Props.Create<UntypedActorRouter>(), "MServis");
             _actorSystem.WhenTerminated.Wait();
         }
     }

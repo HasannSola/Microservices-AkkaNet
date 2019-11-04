@@ -36,6 +36,16 @@
                               use-role =  AddActor
                           }
                    }
+
+                    /MServis/GetAll{
+                          router = round-robin-pool
+                          nr-of-instances = 10
+                          cluster {
+                              enabled = on
+                              max-nr-of-instances-per-node = 3
+                              use-role =  GetAllActor
+                          }
+                   }
               }
             }
             remote {
@@ -50,10 +60,10 @@
     	        seed-nodes = [""akka.tcp://MSA@##hostname##:##port##""]
     	        roles = [Router]
             }
+           log-config-on-start = on   #Cmd ekranında config file gözükemsi için
         }";
-
         public static string configWorker =
-         @"akka {
+ @"akka {
 	          actor { 
                         provider = ""Akka.Cluster.ClusterActorRefProvider, Akka.Cluster""
                     }

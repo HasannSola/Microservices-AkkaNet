@@ -16,6 +16,7 @@ namespace MSA.Actors.Actors
         {
             _productManager = new ProductManager(new EfProductDal());
             Receive<AddMessage>(message => Handle(message));
+            Receive<GetAllMessage>(message => Handle(message));
         }
         private void Handle(AddMessage message)
         {
@@ -25,8 +26,15 @@ namespace MSA.Actors.Actors
              result = _productManager.Add((Product)message.Value);
             if (!string.IsNullOrEmpty(result))
             {//Ard arda  3 tane worker actor gönderildiğinde actor çalışmakta , 4. actor de ise kuyrukta beklemekte.
-                Thread.Sleep(30 * 1000);//1dk
+                Thread.Sleep(3 * 1000);
             }
+            _sender.Tell(result);
+        }
+        private void Handle(GetAllMessage message)
+        {
+            string result = "";
+            var _sender = Sender;
+             result = _productManager.GetAll();
             _sender.Tell(result);
         }
     }

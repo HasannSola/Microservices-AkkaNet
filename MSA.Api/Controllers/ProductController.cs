@@ -25,5 +25,13 @@ namespace MSA.Api.Controllers
             var result = await Globals.Router.Ask<string>(new AddMessage(model));
             return result;
         }
+
+        [HttpGet]
+        [ActionName("GetAll")]
+        public async Task<string> GetAll()
+        {
+            var result = await Globals.Router.Ask<string>(new GetAllMessage());
+            return result;
+        }
     }
 }
